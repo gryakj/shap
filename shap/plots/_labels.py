@@ -3,7 +3,7 @@ labels = {
     'INTERACTION_VALUE': "SHAP interaction value",
     'INTERACTION_EFFECT': "SHAP interaction value for\n%s and %s",
     'VALUE': "SHAP value (impact on model output)",
-    'GLOBAL_VALUE': "mean(|SHAP value|) (average impact on model output magnitude)",
+    'GLOBAL_VALUE': "Mean Absolute SHAP Value",
     'VALUE_FOR': "SHAP value for\n%s",
     'PLOT_FOR': "SHAP plot for %s",
     'FEATURE': "Feature %s",

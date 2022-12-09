@@ -468,6 +468,7 @@ def scatter(shap_values, color="#1E88E5", hist=True, axis_color="#333333", cmap=
 def dependence_legacy(ind, shap_values=None, features=None, feature_names=None, display_features=None,
                       interaction_index="auto",
                       color="#1E88E5", axis_color="#333333", cmap=None,
+                      color="#1E88E5", axis_color="#333333", cmap=None,colorbar=True,
                       dot_size=16, x_jitter=0, alpha=1, title=None, xmin=None, xmax=None, ax=None, show=True,
                       ymin=None, ymax=None):
     """ Create a SHAP dependence plot, colored by an interaction feature.
@@ -689,25 +690,25 @@ def dependence_legacy(ind, shap_values=None, features=None, feature_names=None, 
     else:
         p = ax.scatter(xv, s, s=dot_size, linewidth=0, color=color,
                        alpha=alpha, rasterized=len(xv) > 500)
+    if colorbar:
+        if interaction_index != ind and interaction_index is not None:
+            # draw the color bar
+            if type(cd[0]) == str:
+                tick_positions = [cname_map[n] for n in cnames]
+                if len(tick_positions) == 2:
+                    tick_positions[0] -= 0.25
+                    tick_positions[1] += 0.25
+                cb = pl.colorbar(p, ticks=tick_positions, ax=ax, aspect=80)
+                cb.set_ticklabels(cnames)
+            else:
+                cb = pl.colorbar(p, ax=ax, aspect=80)
 
-    if interaction_index != ind and interaction_index is not None:
-        # draw the color bar
-        if type(cd[0]) == str:
-            tick_positions = [cname_map[n] for n in cnames]
-            if len(tick_positions) == 2:
-                tick_positions[0] -= 0.25
-                tick_positions[1] += 0.25
-            cb = pl.colorbar(p, ticks=tick_positions, ax=ax, aspect=80)
-            cb.set_ticklabels(cnames)
-        else:
-            cb = pl.colorbar(p, ax=ax, aspect=80)
-
-        cb.set_label(feature_names[interaction_index], size=13)
-        cb.ax.tick_params(labelsize=11)
-        if categorical_interaction:
-            cb.ax.tick_params(length=0)
-        cb.set_alpha(1)
-        cb.outline.set_visible(False)
+            cb.set_label(feature_names[interaction_index], size=13)
+            cb.ax.tick_params(labelsize=11)
+            if categorical_interaction:
+                cb.ax.tick_params(length=0)
+            cb.set_alpha(1)
+            cb.outline.set_visible(False)
 #         bbox = cb.ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
 #         cb.ax.set_aspect((bbox.height - 0.7) * 20)
 

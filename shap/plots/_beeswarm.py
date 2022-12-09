@@ -403,7 +403,7 @@ def is_color_map(color):
 def summary_legacy(shap_values, features=None, feature_names=None, max_display=None, plot_type=None,
                  color=None, axis_color="#333333", title=None, alpha=1, show=True, sort=True,
                  color_bar=True, plot_size="auto", layered_violin_max_num_bins=20, class_names=None,
-                 class_inds=None,
+                 class_inds=None,legend=True,
                  color_bar_label=labels["FEATURE_VALUE"],
                  cmap=colors.red_blue,
                  # depreciated
@@ -854,7 +854,8 @@ def summary_legacy(shap_values, features=None, feature_names=None, max_display=N
             left_pos += global_shap_values[feature_inds]
         pl.yticks(y_pos, fontsize=13)
         pl.gca().set_yticklabels([feature_names[i] for i in feature_inds])
-        pl.legend(frameon=False, fontsize=12)
+        if legend:
+            pl.legend(frameon=False, fontsize=12)
 
     # draw the color bar
     if color_bar and features is not None and plot_type != "bar" and \
