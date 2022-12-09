@@ -467,7 +467,6 @@ def scatter(shap_values, color="#1E88E5", hist=True, axis_color="#333333", cmap=
 
 def dependence_legacy(ind, shap_values=None, features=None, feature_names=None, display_features=None,
                       interaction_index="auto",
-                      color="#1E88E5", axis_color="#333333", cmap=None,
                       color="#1E88E5", axis_color="#333333", cmap=None,colorbar=True,
                       dot_size=16, x_jitter=0, alpha=1, title=None, xmin=None, xmax=None, ax=None, show=True,
                       ymin=None, ymax=None):
